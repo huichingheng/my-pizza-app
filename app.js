@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const PORT = process.env.PORT || 3000;
+
 
 app.use(bodyParser.json());
 let pizzas = [
@@ -22,23 +22,21 @@ let pizzas = [
   }
 ];
 
-app.get("/", (req, res) => {
-  res.send("hello world");
-});
+
 
 app.get("/pizzas", (req, res) => {
-  res.send(pizzas);
+  res.json(pizzas);
 });
 
 app.get("/pizzas/:id", (req, res) => {
   const pizza = pizzas.find(pizza => pizza.id === req.params.id);
-  res.send(pizza);
+  res.json(pizza);
 });
 
 //[...original,updated]
 app.post("/pizzas", (req, res) => {
   pizzas = [...pizzas, req.body];
-  res.send(pizzas);
+  res.json(pizzas);
 });
 
 // {...original, ...updated}
@@ -51,7 +49,7 @@ app.put("/pizzas/:id", (req, res) => {
   
   pizzas = newPizzasList;
   
-  res.send(pizzas);
+  res.json(pizzas.find(pizza => pizza.id === req.params.id));
 });
 
 
@@ -59,10 +57,8 @@ app.delete("/pizzas/:id", (req, res) => {
   pizzas = pizzas.filter(pizza => {
     return pizza.id !== req.params.id;
   });
-  res.send(pizzas);
+  res.json(pizzas);
 });
 
 
-app.listen(PORT, () => {
-  console.log(`ur app has started on port ${PORT}`);
-});
+module.exports = app

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "start": "node app.js"
   },
   "keywords": [],
@@ -13,6 +14,8 @@
   "dependencies": {
     "body": "^5.1.0",
     "express": "^4.16.3",
-    "parser": "^0.1.4"
+    "jest": "^23.2.0",
+    "parser": "^0.1.4",
+    "supertest": "^3.1.0"
   }
 }
