@@ -71,9 +71,9 @@ test("PUT / should return the array with the updated pizza", async () => {
   expect(response.body).toMatchObject(TEST_DATA);
 });
 
-// test("DELETE / should return a 'delete successful' confirmation message", async () => {
-//   const ID = 2;
-//   const response = await request(app).delete(`/pizzas/${ID}`);
-//   expect(response.status).toEqual(200);
-//   expect(response.body).toEqual(`pizza with id ${ID} deleted successfully`);
-// });
+test("DELETE / should return a 'delete successful' confirmation message", async () => {
+  const ID = 2;
+  const response = await request(app).delete(`/pizzas/${ID}`);
+  expect(response.status).toEqual(200);
+  expect(response.body).toEqual(`pizza with id ${ID} deleted successfully`);
+});
