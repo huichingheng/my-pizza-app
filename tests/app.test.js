@@ -25,13 +25,16 @@ test("descriptive message", () => {
 test("GET / should return hello pizzas", async () => {
   const response = await request(app).get("/");
   expect(response.status).toEqual(200);
-  expect(response.body).toEqual({ message: "hello world" });
+  expect(response.body).toEqual({ message: "hello pizzas" });
 });
 
-test("GET / should return if it is an array", async () => {
+test("GET / should return an non-empty array", async () => {
   const response = await request(app).get("/pizzas");
+  // console.log(response.body);
+  expect(response.status).toEqual(200);
   const isThisAnArray = Array.isArray(response.body);
   expect(isThisAnArray).toEqual(true);
+  expect(response.body.length).toBeGreaterThan(0);
 });
 
 test("GET / should return the particular pizza detail", async () => {
@@ -53,16 +56,24 @@ test("POST / should return the new pizzas list", async () => {
   expect(response.body).toEqual([...pizzas, newPizza]);
 });
 
-test("PUT / should return the new pizza detail", async () => {
+test("PUT / should return the array with the updated pizza", async () => {
+  const TEST_DATA = {
+    id: "3",
+    name: "bffslfkslfksl",
+    price: 45
+  };
   const response = await request(app)
     .put("/pizzas/3")
     .send({ name: "bffslfkslfksl" });
   expect(response.status).toEqual(200);
 
-  console.log(response.body);
-  expect(response.body).toEqual({
-    id: "3",
-    name: "bffslfkslfksl",
-    price: 45
-  });
+  // console.log(response.body);
+  expect(response.body).toMatchObject(TEST_DATA);
 });
+
+// test("DELETE / should return a 'delete successful' confirmation message", async () => {
+//   const ID = 2;
+//   const response = await request(app).delete(`/pizzas/${ID}`);
+//   expect(response.status).toEqual(200);
+//   expect(response.body).toEqual(`pizza with id ${ID} deleted successfully`);
+// });
